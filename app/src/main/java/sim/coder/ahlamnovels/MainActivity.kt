@@ -6,6 +6,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
@@ -17,6 +19,8 @@ import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() , Adapter.OnItemLisetner {
+
+
 
 
     private lateinit var mInterstitialAd: InterstitialAd
@@ -32,6 +36,11 @@ class MainActivity : AppCompatActivity() , Adapter.OnItemLisetner {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+        setSupportActionBar(findViewById(R.id.toolbar))
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.customView
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         //Banner ads
 
@@ -70,11 +79,11 @@ class MainActivity : AppCompatActivity() , Adapter.OnItemLisetner {
 //---------Rating Button --------------------------
 
 
-        rating.setOnClickListener {
-            val rate= Intent(Intent.ACTION_VIEW)
-            rate.data= Uri.parse("https://play.google.com/store/apps/details?id=sim.coder.ahlamnovels")
-            startActivity(rate)
-        }
+//        rating.setOnClickListener {
+//            val rate= Intent(Intent.ACTION_VIEW)
+//            rate.data= Uri.parse("https://play.google.com/store/apps/details?id=sim.coder.ahlamnovels")
+//            startActivity(rate)
+//        }
 
 
 //---------Rating Button --------------------------
@@ -108,6 +117,29 @@ class MainActivity : AppCompatActivity() , Adapter.OnItemLisetner {
 
     }
 
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+
+        menuInflater.inflate(R.menu.menu, menu)
+        return true
+
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+
+        when(item.itemId){
+            R.id.star -> {
+                val rate= Intent(Intent.ACTION_VIEW)
+                rate.data= Uri.parse("https://play.google.com/store/apps/details?id=sim.coder.ahlamnovels")
+                startActivity(rate)
+                
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 
 
     // Alert Dialog/////////////////////////////////////////////////////////////////////////////////////

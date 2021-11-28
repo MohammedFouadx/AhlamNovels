@@ -3,10 +3,17 @@ package sim.coder.ahlamnovels
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.github.barteksc.pdfviewer.listener.OnLoadCompleteListener
+import com.github.barteksc.pdfviewer.util.FitPolicy
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import kotlinx.android.synthetic.main.activity_book_page.*
 
-class BookPage : AppCompatActivity() {
+class BookPage : AppCompatActivity(), OnLoadCompleteListener {
 
+    private lateinit var mInterstitialAd: InterstitialAd
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_page)
@@ -39,6 +46,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(no)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -52,6 +61,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(noo)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -65,6 +76,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(nooo)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -77,6 +90,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(noooo)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -90,6 +105,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(nooooo)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -103,6 +120,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(book6)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -116,6 +135,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(book7)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -130,6 +151,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(book8)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -143,6 +166,8 @@ class BookPage : AppCompatActivity() {
                 .defaultPage(book9)
                 .enableSwipe(true)
                 .enableDoubletap(true)
+                .pageFitPolicy(FitPolicy.WIDTH)
+                .onLoad(this)
                 .load()
         }
 
@@ -152,6 +177,23 @@ class BookPage : AppCompatActivity() {
 
 
 
+    }
+
+    override fun loadComplete(nbPages: Int) {
+        MobileAds.initialize(this) {}
+        mInterstitialAd = InterstitialAd(this)
+        mInterstitialAd.adUnitId = "ca-app-pub-5329195808649014/1362574283"
+        mInterstitialAd.loadAd(
+            AdRequest.Builder()
+                .build())
+
+        mInterstitialAd.adListener= object : AdListener(){
+
+            override fun onAdLoaded() {
+                mInterstitialAd.show()
+                super.onAdLoaded()
+            }
+        }
     }
 
 }

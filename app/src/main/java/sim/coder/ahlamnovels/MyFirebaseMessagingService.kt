@@ -82,7 +82,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             notificationChannel.enableVibration(true)
             notificatinManager.createNotificationChannel(notificationChannel)
             val builder= Notification.Builder(this,channelId)
-                .setSmallIcon(R.drawable.notifi)
                 .setContentTitle("FCM Message")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
